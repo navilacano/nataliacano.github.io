@@ -1,0 +1,160 @@
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>PAGO INTERNET DOCENTES IRH</title><style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    .container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th {
+        background-color: black;
+        color: white;
+        padding: 10px;
+        text-align: left;
+    }
+    td {
+        padding: 10px;
+    }
+    input, select {
+        width: 100%;
+        padding: 5px;
+        margin-top: 5px;
+    }
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+    #facturaForm {
+        display: none;
+        margin-top: 20px;
+    }
+    #facturaForm table {
+        background-color: #e0e0e0;
+    }
+    </style></head><body>
+    <div class="container">
+        <h2>PAGO INTERNET DOCENTES IRH</h2>
+        <form id="docentesForm">
+            <table>
+                <tr>
+                    <th>DOCENTES</th>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="id">ID:</label>
+                        <input type="text" id="id" name="id" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="nombre">NOMBRE:</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="telefono">TELÉFONO:</label>
+                        <input type="tel" id="telefono" name="telefono" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="dispositivo">DISPOSITIVO:</label>
+                        <select id="dispositivo" name="dispositivo" required>
+                            <option value="">Seleccione un dispositivo</option>
+                            <option value="laptop">Laptop</option>
+                            <option value="desktop">Desktop</option>
+                            <option value="tablet">Tablet</option>
+                            <option value="smartphone">Smartphone</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="fecha">MES:</label>
+                        <input type="date" id="fecha" name="fecha" required>
+                        <span id="fechaSeleccionada"></span>
+                    </td>
+                </tr>
+            </table>
+            <button type="button" onclick="mostrarFactura()">FACTURA</button>
+        </form>
+    
+        <form id="facturaForm">
+            <h3>FACTURA</h3>
+            <table>
+                <tr>
+                    <td>
+                        <label for="idFactura">ID FACTURA:</label>
+                        <input type="text" id="idFactura" name="idFactura" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="nombreFactura">NOMBRE:</label>
+                        <input type="text" id="nombreFactura" name="nombreFactura" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="mesFactura">MES:</label>
+                        <input type="text" id="mesFactura" name="mesFactura" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="aporte">APORTE:</label>
+                        <input type="number" id="aporte" name="aporte" required>
+                    </td>
+                </tr>
+            </table>
+            <button type="button" onclick="guardarFactura()">Guardar Factura</button>
+            <button><a href="process.php">INGRESAR</a></button>
+        </form>
+    </div>
+    
+    <script>
+    document.getElementById('fecha').addEventListener('change', function() {
+        const fecha = new Date(this.value);
+        const opciones = { year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('fechaSeleccionada').textContent = fecha.toLocaleDateString('es-ES', opciones);
+    });
+    
+    function mostrarFactura() {
+        const id = document.getElementById('id').value;
+        const nombre = document.getElementById('nombre').value;
+        const fecha = new Date(document.getElementById('fecha').value);
+    
+        document.getElementById('idFactura').value = id;
+        document.getElementById('nombreFactura').value = nombre;
+        document.getElementById('mesFactura').value = fecha.toLocaleDateString('es-ES', { year: 'numeric', month: 'long' });
+    
+        document.getElementById('facturaForm').style.display = 'block';
+    }
+    
+    function guardarFactura() {
+        // Aquí iría el código para conectar con la base de datos y guardar la factura
+        // Por ahora, simplemente mostraremos un mensaje de éxito
+        alert('Factura guardada exitosamente en la base de datos');
+    }
+    </script></body></html>
